@@ -1,0 +1,23 @@
+
+.bg-orange {
+    background-color: orange;
+    color: white;
+}
+
+.banner-container {
+    margin: 2rem auto;
+    width: 80%;
+    height: 600px;
+    background-image: url("/home_image_cover.png");
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+}
+
+.banner-text {
+    font-family: 'Gloria Hallelujah', cursive;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    font-size: 4rem;
+}

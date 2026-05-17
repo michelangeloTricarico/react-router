@@ -1,10 +1,11 @@
-const NavList=[{
-name: "Prodotti",
-link: "/products"
-},
+const NavList=[
 {
 name: "Home Page",
 link: "/"
+},
+{
+name: "Prodotti",
+link: "/products"
 },
 {
 name: "Chi Siamo",
