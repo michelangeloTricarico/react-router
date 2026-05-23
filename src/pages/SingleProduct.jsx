@@ -1,19 +1,29 @@
 	
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useParams,useNavigate } from "react-router";
  
 export default function SingleProduct() {
   const { id } = useParams();
+  const [actualId, setActualId]=useState()
   const [product,setProduct]= useState()
+  const navigate = useNavigate()
  
   useEffect(() => {
+    const actId=id
+    setActualId(actId)
     fetch(`https://fakestoreapi.com/products/${id}`)
     .then((res) => res.json())
       .then((data) => {
         setProduct(data);
         console.log(data);
+      })
+      .catch(err => {
+        console.log(err)
+        // in caso di errore (es. 404), torna indietro
+        navigate("/404");
       });
-  }, []);
+      
+  }, [id,actualId]);
  
   return (
     <div>

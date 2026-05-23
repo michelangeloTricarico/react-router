@@ -36,6 +36,7 @@ function App() {
             <Route path="/contacts" Component={ContactsPage} />
             <Route path="/products" element={<ProductsPage products={products} Card={Card} />}/>
             <Route path="/products/:id" Component={SingleProduct} />
+            <Route path="/404" element={<div className='m-auto mt-4 mb-4 text-center'><h1>404 Error</h1><p>Page not found</p></div>} />
           </Route>
         </Routes>
       </BrowserRouter>
