@@ -1,0 +1,32 @@
+	
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
+ 
+export default function SingleProduct() {
+  const { id } = useParams();
+  const [product,setProduct]= useState()
+ 
+  useEffect(() => {
+    fetch(`https://fakestoreapi.com/products/${id}`)
+    .then((res) => res.json())
+      .then((data) => {
+        setProduct(data);
+        console.log(data);
+      });
+  }, []);
+ 
+  return (
+    <div>
+        <div key= {"card-" + id}  className="m-auto mt-2 mb-2" style={{width:"80%"}}>
+        <div className="card" >
+          <img className="m-auto mt-2 mb-2" src={product?.image} style={{width: "20%",objectFit: "cover"}} alt="" />
+          <p className="px-2 m-auto"><strong>{product?.title}</strong></p>
+          <p><i className="bi bi-star-fill px-2"></i>{product?.rating?.rate}<i className="bi bi-person-heart px-2"></i>{product?.rating?.count}</p>
+          <p><i className="bi bi-currency-euro px-2"></i>{product?.price}</p>
+          <hr />
+          <p className="p-2">{product?.description}</p>
+        </div>
+      </div>
+    </div>
+  );
+}

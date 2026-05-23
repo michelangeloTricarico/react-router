@@ -4,9 +4,10 @@ import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
 import { BrowserRouter, Routes, Route, unstable_setDevServerHooks } from 'react-router-dom'
-import HomePage from './pages/AppHomePage'
-import ContactsPage from './pages/AppContactsPage'
-import ProductsPage from './pages/AppProducts'
+import HomePage from './pages/HomePage'
+import ContactsPage from './pages/ContactsPage'
+import ProductsPage from './pages/Products'
+import SingleProduct from './pages/SingleProduct'
 import NavList from './data/NavLink'
 import DefaultLayout from './layout/Layout'
 import Card from './components/Cards'
@@ -34,6 +35,7 @@ function App() {
             <Route path="/" element={<HomePage link="/products" />} />
             <Route path="/contacts" Component={ContactsPage} />
             <Route path="/products" element={<ProductsPage products={products} Card={Card} />}/>
+            <Route path="/products/:id" Component={SingleProduct} />
           </Route>
         </Routes>
       </BrowserRouter>
