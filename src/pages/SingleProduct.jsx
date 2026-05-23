@@ -2,15 +2,14 @@
 import { useEffect, useState } from "react";
 import { useParams,useNavigate } from "react-router";
  
-export default function SingleProduct() {
+export default function SingleProduct({minId,maxId}) {
   const { id } = useParams();
-  const [actualId, setActualId]=useState()
   const [product,setProduct]= useState()
   const navigate = useNavigate()
  
   useEffect(() => {
-    const actId=id
-    setActualId(actId)
+    const actId=Number(id)
+    console.log(minId,maxId)
     fetch(`https://fakestoreapi.com/products/${id}`)
     .then((res) => res.json())
       .then((data) => {
@@ -23,7 +22,17 @@ export default function SingleProduct() {
         navigate("/404");
       });
       
-  }, [id,actualId]);
+  }, [id]);
+
+  function PrevId(){
+    const actId=Number(id)-1
+    navigate(`/products/${actId}`)
+  }
+
+  function NextId(){
+    const actId=Number(id)+1
+    navigate(`/products/${actId}`)
+  }
  
   return (
     <div>
@@ -37,6 +46,25 @@ export default function SingleProduct() {
           <p className="p-2">{product?.description}</p>
         </div>
       </div>
+      <nav className="d-flex justify-content-center" aria-label="Page navigation example">
+        <ul className="pagination">
+            <li className="page-item">
+            {Number(id) > minId && (
+            <button onClick={PrevId} className="page-link" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </button>
+            )}
+            </li>
+            <li className="page-item">
+            {Number(id) < maxId && (
+            <button onClick={NextId} className="page-link" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </button>
+            )}
+            </li>
+        </ul>
+        </nav>
     </div>
+    
   );
 }

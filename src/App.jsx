@@ -16,6 +16,8 @@ function App() {
 
   useEffect(takeProducts,[])
   const [products,setProducts] = useState([])
+  const [minId,setMinId]= useState(null)
+  const [maxId,setMaxId]= useState(null)
 
   function takeProducts() {
     fetch("https://fakestoreapi.com/products")
@@ -23,9 +25,13 @@ function App() {
       .then((data) => {
         setProducts(data);
         console.log(data);
+        const min_Id=data[0].id
+        setMinId(Number(min_Id))
+        const max_Id=data[data.length - 1].id
+        setMaxId(Number(max_Id))
       });
+    
   }
-
 
   return (
     <>
@@ -35,7 +41,7 @@ function App() {
             <Route path="/" element={<HomePage link="/products" />} />
             <Route path="/contacts" Component={ContactsPage} />
             <Route path="/products" element={<ProductsPage products={products} Card={Card} />}/>
-            <Route path="/products/:id" Component={SingleProduct} />
+            <Route path="/products/:id" element={<SingleProduct minId={minId} maxId={maxId}></SingleProduct>} />
             <Route path="/404" element={<div className='m-auto mt-4 mb-4 text-center'><h1>404 Error</h1><p>Page not found</p></div>} />
           </Route>
         </Routes>
