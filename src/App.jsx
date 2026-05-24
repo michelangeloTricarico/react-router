@@ -42,7 +42,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route element={<DefaultLayout NavList={NavList}/>}>
-              <Route path="/" element={<HomePage link="/products" />} />
+              <Route path="/" element={<HomePage link="/products" products={products}/>} />
               <Route path="/contacts" Component={ContactsPage} />
               <Route path="/products" element={<ProductsPage products={products} Card={Card} />}/>
               <Route path="/products/:id" element={<SingleProduct minId={minId} maxId={maxId}></SingleProduct>} />
