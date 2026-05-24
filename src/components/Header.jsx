@@ -1,12 +1,12 @@
 import { Link, NavLink } from "react-router"
 import BudgetContext from "../context/BudgetContext"
 import { useState } from "react"
+import { useContext } from "react"
+import Card from "./Cards"
 export default function Header({NavList}){
-    const [budgetMode,setBudgetMode] = useState(false)
-    const [budgetValue,setBudgetValue] = useState("")
+    const { budgetMode,setBudgetMode,budgetValue,setBudgetValue } = useContext(BudgetContext);
     return( 	
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
-            <BudgetContext.Provider value={{budgetMode, budgetValue}}/>
             <div className="container-fluid">
                 <a className="navbar-brand" href="#">MyShop</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,7 +14,7 @@ export default function Header({NavList}){
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav">
-                    {NavList.map((item,index) => (
+                    {NavList && NavList.map((item,index) => (
                         <li className="nav-item" key={"nav"+index}>
                         <Link className="nav-link active" aria-current="page" to={item.link}>{item.name}</Link>
                         </li>

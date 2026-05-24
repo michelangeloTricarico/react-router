@@ -1,8 +1,16 @@
 import { Link } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import BudgetContext from "../context/BudgetContext";
 export default function Card({products}){
+    const { budgetMode,setBudgetMode,budgetValue,setBudgetValue } = useContext(BudgetContext);
+    useEffect(filter,[budgetMode, budgetValue])
+
+    function filter(){
+      console.log(budgetMode, budgetValue)
+    }
     return(
         <div className="row">
-    {products.map((product,index)=>(
+    {products && products.map((product,index)=>(
       <div key= {"card-" + index} className="col-12 col-sm-6 col-md-4 col-lg-3 mb-2 px-4" >
         <div className="card" style={{height:"500px"}}>
           <img src={product.image} style={{height: "200px",width: "100%",objectFit: "cover"}} alt="" />

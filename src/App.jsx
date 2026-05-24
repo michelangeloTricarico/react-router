@@ -11,13 +11,15 @@ import SingleProduct from './pages/SingleProduct'
 import NavList from './data/NavLink'
 import DefaultLayout from './layout/Layout'
 import Card from './components/Cards'
+import Header from './components/Header'
+import BudgetContext from './context/BudgetContext'
 
 function App() {
-
-  useEffect(takeProducts,[])
   const [products,setProducts] = useState([])
   const [minId,setMinId]= useState(null)
   const [maxId,setMaxId]= useState(null)
+  const [budgetMode,setBudgetMode] = useState(false)
+  const [budgetValue,setBudgetValue] = useState("")
 
   function takeProducts() {
     fetch("https://fakestoreapi.com/products")
@@ -33,19 +35,22 @@ function App() {
     
   }
 
+  useEffect(takeProducts,[])
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<DefaultLayout NavList={NavList}/>}>
-            <Route path="/" element={<HomePage link="/products" />} />
-            <Route path="/contacts" Component={ContactsPage} />
-            <Route path="/products" element={<ProductsPage products={products} Card={Card} />}/>
-            <Route path="/products/:id" element={<SingleProduct minId={minId} maxId={maxId}></SingleProduct>} />
-            <Route path="/404" element={<div className='m-auto mt-4 mb-4 text-center'><h1>404 Error</h1><p>Page not found</p></div>} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <BudgetContext.Provider value={{ budgetMode,setBudgetMode,budgetValue,setBudgetValue }}>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<DefaultLayout NavList={NavList}/>}>
+              <Route path="/" element={<HomePage link="/products" />} />
+              <Route path="/contacts" Component={ContactsPage} />
+              <Route path="/products" element={<ProductsPage products={products} Card={Card} />}/>
+              <Route path="/products/:id" element={<SingleProduct minId={minId} maxId={maxId}></SingleProduct>} />
+              <Route path="/404" element={<div className='m-auto mt-4 mb-4 text-center'><h1>404 Error</h1><p>Page not found</p></div>} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </BudgetContext.Provider>
       
     </>
   )
